@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <title>桃太郎電鉄</title>
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -26,24 +27,9 @@
             opacity: 0.5;
         }
 
-        #player1 {
-            background-color: blue;
-            box-sizing: border-box;
-        }
-
-        #player2 {
-            background-color: red;
-            box-sizing: border-box;
-        }
-
-        #player3 {
-            background-color: yellow;
-            box-sizing: border-box;
-        }
-
-        #player4 {
-            background-color: green;
-            box-sizing: border-box;
+        #back,
+        #next {
+            opacity: 0;
         }
 
         .page {
@@ -54,7 +40,8 @@
             display: block;
         }
 
-        @media (min-aspect-ratio: 4/3) {  /* 横長のディスプレイ */
+        /* 横長のディスプレイ */
+        @media (min-aspect-ratio: 4/3) {
             #win {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2);
@@ -67,11 +54,27 @@
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 60vh;
-                width: calc(100vh * 4 / 3 * 0.8);
+                width: calc(100vh * 3.2 / 3);
                 height: 30vh;
             }
 
-            #home1, #player1 {
+            #back {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
+                top: 60vh;
+                width: calc(100vh * 1.6 / 3);
+                height: 30vh;
+            }
+
+            #next {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 0.4 / 3) + (100vh * 1.6 / 3));
+                top: 60vh;
+                width: calc(100vh * 1.6 / 3);
+                height: 30vh;
+            }
+
+            #home1 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 10vh;
@@ -79,7 +82,7 @@
                 height: 10vh;
             }
 
-            #home2, #player2 {
+            #home2 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 22vh;
@@ -87,7 +90,7 @@
                 height: 10vh;
             }
 
-            #home3, #player3 {
+            #home3 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 34vh;
@@ -95,7 +98,7 @@
                 height: 10vh;
             }
 
-            #home4, #player4 {
+            #home4 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 46vh;
@@ -112,7 +115,8 @@
             }
         }
 
-        @media (max-aspect-ratio: 4/3) {  /* 縦長のディスプレイ */
+        /* 縦長のディスプレイ */
+        @media (max-aspect-ratio: 4/3) {
             #win {
                 position: absolute;
                 left: 0;
@@ -129,7 +133,23 @@
                 height: calc(100vw * 3 / 4 * 0.3);
             }
 
-            #home1, #player1 {
+            #back {
+                position: absolute;
+                left: 10vw;
+                top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.6));
+                width: 40vw;
+                height: calc(100vw * 3 / 4 * 0.3);
+            }
+
+            #next {
+                position: absolute;
+                left: 50vw;
+                top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.6));
+                width: 40vw;
+                height: calc(100vw * 3 / 4 * 0.3);
+            }
+
+            #home1 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.1));
@@ -137,7 +157,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home2, #player2 {
+            #home2 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.22));
@@ -145,7 +165,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home3, #player3 {
+            #home3 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.34));
@@ -153,7 +173,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home4, #player4 {
+            #home4 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.46));
@@ -170,84 +190,113 @@
             }
         }
     </style>
+    <style src="create.css"></style>
 </head>
 
 <body>
     <canvas id="win"></canvas>
     <p id="msg"></p>
-	<div id="home" class="page active">
-		<button id="home1">つづきから</button>
-		<button id="home2" onclick="changePage('create1')">はじめから</button>
-		<button id="home3">設定</button>
-		<button id="home4">遊び方</button>
-	</div>
-    <div id="create1" class="page">
-        <input id="player1" type="text" maxlength="5">
-        <input id="player2" type="text" maxlength="5">
-        <input id="player3" type="text" maxlength="5">
-        <input id="player4" type="text" maxlength="5">
-        <select id="yourPlayer">
-            <option value="0">-あなたの電車は-</option>
-            <option value="1">青色</option>
-            <option value="2">赤色</option>
-            <option value="3">黄色</option>
-            <option value="4">緑色</option>
-        </select>
+    <button id="back"></button>
+    <button id="next"></button>
+    <div id="home" class="page active">
+        <button id="home1">つづきから</button>
+        <button id="home2" onclick="changePage('create1')">はじめから</button>
+        <button id="home3">設定</button>
+        <button id="home4">遊び方</button>
     </div>
+    <div id="create1" class="page">
+        <input id="player1" type="text" maxlength="6">
+        <input id="player2" type="text" maxlength="6">
+        <input id="player3" type="text" maxlength="6">
+        <input id="player4" type="text" maxlength="6">
+    </div>
+    <div id="create2" class="page"></div>
     <script>
+        class Player {
+            constructor() {
+                this.name = '';
+            }
+        }
 
-class Player {
-    constructor() {
-        this.name = '';
-    }
-}
+        const win = document.getElementById('win');
+        const ctx = win.getContext('2d');
+        const msg = document.getElementById('msg');
+        const back = docuemnt.getElementById('back');
+        const next = docuemnt.getElementById('next');
+        let player;
+        let page = 'home';
 
-const win = document.getElementById('win');
-const ctx = win.getContext('2d');
-const msg = document.getElementById('msg');
-let page = 'home';
+        function init() {
+            switch (page) {
+                case 'home':
+                    msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
+                    back.addEventListener('click', () => {
+                    });
+                    next.addEventListener('click', () => {
+                    });
+                    break;
+                case 'create1':
+                    msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
+                    back.addEventListener('click', () => {
+                        changePage('home');
+                    });
+                    next.addEventListener('click', () => {
+                        const player1 = document.getElementById('player1');
+                        const player2 = document.getElementById('player2');
+                        const player3 = document.getElementById('player3');
+                        const player4 = document.getElementById('player4');
+                        if(player1.value != "") {
+                            player.push(Player(player1.value));
+                            if(player2.value != "") {
+                                player.push(Player(player2.value));
+                                if(player3.value != "") {
+                                    player.push(Player(player3.value));
+                                    if(player4.value != "") {
+                                        player.push(Player(player4.value));
+                                    }
+                                }
+                            }
+                            changePage('create2');
+                        }
+                    });
+                    break;
+            }
+        }
 
-function draw() {
-    switch(page) {
-        case 'home':
-            msg.textContent = "何をやりたいですか";
-            break;
-        case 'create1':
-            msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
-            break;
-    }
-}
+        function draw() {
+        }
 
-function changePage(pageId) {
-    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    page = pageId;
-    draw();
-}
+        function changePage(pageId) {
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            page = pageId;
+            init();
+            draw();
+        }
 
-function preventScroll(e) {
-    e.preventDefault();
-}
+        function preventScroll(e) {
+            e.preventDefault();
+        }
 
-function resizeWin() {
-    const dpr = window.devicePixelRatio || 1;
-    const rect = win.getBoundingClientRect();
-    win.width  = Math.round(rect.width  * dpr);
-    win.height = Math.round(rect.height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw();
-}
+        function resizeWin() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = win.getBoundingClientRect();
+            win.width = Math.round(rect.width * dpr);
+            win.height = Math.round(rect.height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            draw();
+        }
 
-window.addEventListener('load', () => {
-    document.addEventListener('touchmove', preventScroll, { passive: false });
-    document.addEventListener('wheel', preventScroll, { passive: false });
-    changePage('home');
-    resizeWin();
-});
+        window.addEventListener('load', () => {
+            document.addEventListener('touchmove', preventScroll, { passive: false });
+            document.addEventListener('wheel', preventScroll, { passive: false });
+            changePage('home');
+            resizeWin();
+        });
 
-window.addEventListener('resize', () => {
-    resizeWin();
-});
+        window.addEventListener('resize', () => {
+            resizeWin();
+        });
 
     </script>
 </body>

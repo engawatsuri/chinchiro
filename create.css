@@ -1,0 +1,89 @@
+#player1 {
+    background-color: blue;
+    box-sizing: border-box;
+}
+
+#player2 {
+    background-color: red;
+    box-sizing: border-box;
+}
+
+#player3 {
+    background-color: yellow;
+    box-sizing: border-box;
+}
+
+#player4 {
+    background-color: green;
+    box-sizing: border-box;
+}
+
+/* 横長のディスプレイ */
+@media (min-aspect-ratio: 4/3) {
+    #player1 {
+        position: absolute;
+        left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
+        top: 10vh;
+        width: calc(100vh * 4 / 3 * 0.5);
+        height: 10vh;
+    }
+
+    #player2 {
+        position: absolute;
+        left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
+        top: 22vh;
+        width: calc(100vh * 4 / 3 * 0.5);
+        height: 10vh;
+    }
+
+    #player3 {
+        position: absolute;
+        left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
+        top: 34vh;
+        width: calc(100vh * 4 / 3 * 0.5);
+        height: 10vh;
+    }
+
+    #player4 {
+        position: absolute;
+        left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
+        top: 46vh;
+        width: calc(100vh * 4 / 3 * 0.5);
+        height: 10vh;
+    }
+}
+
+/* 縦長のディスプレイ */
+@media (max-aspect-ratio: 4/3) {
+    #player1 {
+        position: absolute;
+        left: 10vw;
+        top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.1));
+        width: 50vw;
+        height: calc(100vw * 3 / 4 * 0.1);
+    }
+
+    #player2 {
+        position: absolute;
+        left: 10vw;
+        top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.22));
+        width: 50vw;
+        height: calc(100vw * 3 / 4 * 0.1);
+    }
+
+    #player3 {
+        position: absolute;
+        left: 10vw;
+        top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.34));
+        width: 50vw;
+        height: calc(100vw * 3 / 4 * 0.1);
+    }
+
+    #player4 {
+        position: absolute;
+        left: 10vw;
+        top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.46));
+        width: 50vw;
+        height: calc(100vw * 3 / 4 * 0.1);
+    }
+}
