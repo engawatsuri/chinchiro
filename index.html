@@ -211,6 +211,7 @@
         <input id="player4" type="text" maxlength="6">
     </div>
     <div id="create2" class="page"></div>
+    <div id="apr" class="page"></div>
     <script type="module">
         import init, { draw_map } from "./pkg/map.js";
         async function map(center_x, center_y) {
@@ -266,6 +267,15 @@
                         }
                     });
                     break;
+                case 'create2':
+                    msg.textContent = "本作の目標はお金を集めることではありません。様々な事象でポイントを集めることです。その事象の中には、総資産が少なくないと発生しないものもあります。まずは100ポイントを目指して頑張ってください";
+                    back.addEventListener('click', () => {
+                        changePage('create');
+                    });
+                    next.addEventListener('click', () => {
+                        changePage('spr');
+                    });
+                    break;
             }
         }
 
@@ -274,6 +284,9 @@
                 case 'home':
                     break;
                 case 'create1':
+                    break;
+                case 'create2':
+                    map(0, 0);
                     break;
             }
         }
