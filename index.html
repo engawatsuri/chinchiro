@@ -190,7 +190,7 @@
             }
         }
     </style>
-    <style src="create.css"></style>
+    <link rel="stylesheet" href="create.css">
 </head>
 
 <body>
@@ -226,27 +226,32 @@
     <div id="start" class="page"></div>
     <script type="module">
         import init, { draw_map } from "./pkg/map.js";
-        async function map(center_x, center_y) {
-            await init();
-            draw_map(center_x, center_y);
-        }
-
+        
         class Player {
-            constructor() {
-                this.name = '';
+            constructor(name) {
+                this.name = name;
                 this.x = 0;
                 this.y = 0;
             }
         }
-
+        
         const win = document.getElementById('win');
         const ctx = win.getContext('2d');
         const msg = document.getElementById('msg');
-        const back = docuemnt.getElementById('back');
-        const next = docuemnt.getElementById('next');
-        let player;
+        const back = document.getElementById('back');
+        const next = document.getElementById('next');
+        let initialized = false;
+        let player = [];
         let year = 1;
         let page = 'home';
+
+        async function map(center_x, center_y) {
+            if(!initialized) {
+                await init();
+                initialized = true;
+            }
+            draw_map(center_x, center_y);
+        }
     </script>
     <script src="month.js"></script>
     <script>
@@ -254,44 +259,44 @@
             switch (page) {
                 case 'home':
                     msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
-                    back.addEventListener('click', () => {
-                    });
-                    next.addEventListener('click', () => {
-                    });
+                    back.onclick = () => {
+                    };
+                    next.onclick = () => {
+                    };
                     break;
                 case 'create1':
                     msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
-                    back.addEventListener('click', () => {
+                    back.onclick = () => {
                         changePage('home');
-                    });
-                    next.addEventListener('click', () => {
+                    };
+                    next.onclick = () => {
                         const player1 = document.getElementById('player1');
                         const player2 = document.getElementById('player2');
                         const player3 = document.getElementById('player3');
                         const player4 = document.getElementById('player4');
                         if(player1.value != "") {
-                            player.push(Player(player1.value));
+                            player.push(new Player(player1.value));
                             if(player2.value != "") {
-                                player.push(Player(player2.value));
+                                player.push(new Player(player2.value));
                                 if(player3.value != "") {
-                                    player.push(Player(player3.value));
+                                    player.push(new Player(player3.value));
                                     if(player4.value != "") {
-                                        player.push(Player(player4.value));
+                                        player.push(new Player(player4.value));
                                     }
                                 }
                             }
                             changePage('create2');
                         }
-                    });
+                    };
                     break;
                 case 'create2':
                     msg.textContent = "本作の目標はお金を集めることではありません。様々な事象でポイントを集めることです。その事象の中には、総資産が少なくないと発生しないものもあります。まずは100ポイントを目指して頑張ってください";
-                    back.addEventListener('click', () => {
-                        changePage('create');
-                    });
-                    next.addEventListener('click', () => {
+                    back.onclick = () => {
+                        changePage('create1');
+                    };
+                    next.onclick = () => {
                         changePage('spr');
-                    });
+                    };
                     break;
                 default:
                     init_month();
