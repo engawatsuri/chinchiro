@@ -1,0 +1,21 @@
+[package]
+name = "map"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+csv = "1.3"
+
+[dependencies.web-sys]
+version = "0.3"
+# Canvas操作に必要な機能をすべて有効にする
+features = [
+  "Window",
+  "Document",
+  "HtmlCanvasElement",
+  "CanvasRenderingContext2d"
+]

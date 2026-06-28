@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>桃太郎電鉄</title>
+    <title>チンチロ電鉄</title>
     <style>
         html,
         body {
@@ -211,7 +211,13 @@
         <input id="player4" type="text" maxlength="6">
     </div>
     <div id="create2" class="page"></div>
-    <script>
+    <script type="module">
+        import init, { draw_map } from "./pkg/map.js";
+        async function map(center_x, center_y) {
+            await init();
+            draw_map(center_x, center_y);
+        }
+
         class Player {
             constructor() {
                 this.name = '';
@@ -264,6 +270,12 @@
         }
 
         function draw() {
+            switch (page) {
+                case 'home':
+                    break;
+                case 'create1':
+                    break;
+            }
         }
 
         function changePage(pageId) {
