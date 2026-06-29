@@ -225,15 +225,10 @@
     <div id="mar" class="page"></div>
     <div id="start" class="page"></div>
     <script type="module">
-        import init, { draw_map } from "./pkg/map.js";
-        
-        class Player {
-            constructor(name) {
-                this.name = name;
-                this.x = 0;
-                this.y = 0;
-            }
-        }
+        import init_wasm, {
+            draw_map,
+            Player, add_player, get_player
+        } from "./pkg/frontend.js";
         
         const win = document.getElementById('win');
         const ctx = win.getContext('2d');
@@ -241,16 +236,10 @@
         const back = document.getElementById('back');
         const next = document.getElementById('next');
         let initialized = false;
-        let player = [];
-        let year = 1;
         let page = 'home';
-
-        async function map(center_x, center_y) {
-            if(!initialized) {
-                await init();
-                initialized = true;
-            }
-            draw_map(center_x, center_y);
+        
+        async function initFrontend() {
+            await init_wasm();
         }
     </script>
     <script src="month.js"></script>
@@ -275,13 +264,13 @@
                         const player3 = document.getElementById('player3');
                         const player4 = document.getElementById('player4');
                         if(player1.value != "") {
-                            player.push(new Player(player1.value));
+                            add_player(player1.value);
                             if(player2.value != "") {
-                                player.push(new Player(player2.value));
+                                add_player(player2.value);
                                 if(player3.value != "") {
-                                    player.push(new Player(player3.value));
+                                    add_player(player3.value);
                                     if(player4.value != "") {
-                                        player.push(new Player(player4.value));
+                                        add_player(player4.value);
                                     }
                                 }
                             }
@@ -311,7 +300,7 @@
                 case 'create1':
                     break;
                 case 'create2':
-                    map(0, 0);
+                    draw_map(0, 0);
                     break;
                 default:
                     draw_month();
@@ -344,6 +333,7 @@
             document.addEventListener('wheel', preventScroll, { passive: false });
             changePage('home');
             resizeWin();
+            initFrontend();
         });
 
         window.addEventListener('resize', () => {

@@ -116,7 +116,8 @@ function draw_month() {
         case 'jan':
         case 'feb':
         case 'mar':
-            map(player[0].x, player[0].y);
+            player = get_player(0);
+            draw_map(player.get_x(), player.get_y());
             break;
         default:
             return -1
