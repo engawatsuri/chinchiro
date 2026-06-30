@@ -113,6 +113,38 @@
                 width: calc(100vh * 4 / 3 * 0.2);
                 height: 10vh;
             }
+
+            #dice {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 13/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #card {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 15/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #search {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 17/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #other {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 19/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
         }
 
         /* 縦長のディスプレイ */
@@ -188,6 +220,38 @@
                 width: 20vw;
                 height: calc(100vw * 3 / 4 * 0.1);
             }
+
+            #dice {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 13/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #card {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 15/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #search {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 17/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #other {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
         }
     </style>
     <link rel="stylesheet" href="create.css">
@@ -223,7 +287,16 @@
     <div id="jan" class="page"></div>
     <div id="feb" class="page"></div>
     <div id="mar" class="page"></div>
-    <div id="start" class="page"></div>
+    <div id="start" class="page">
+        <button id="dice" onclick="changePage('dice')">サイコロ</button>
+        <button id="card" onclick="changePage('card')">カード</button>
+        <button id="search" onclick="changePage('search')">探索</button>
+        <button id="other" onclick="changePage('other')">その他</button>
+    </div>
+    <div id="dice" class="page"></div>
+    <div id="card" class="page"></div>
+    <div id="search" class="page"></div>
+    <div id="other" class="page"></div>
     <script type="module">
         import init_wasm, {
             draw_map,
@@ -237,6 +310,7 @@
         const next = document.getElementById('next');
         let initialized = false;
         let page = 'home';
+        let turn = 0;
         
         async function initFrontend() {
             await init_wasm();
@@ -287,6 +361,14 @@
                         changePage('spr');
                     };
                     break;
+                case 'start':
+                    msg.textContent = "";
+                    back.onclick = () => {};
+                    next.onclick = () => {};
+                    msg.style.display = 'block';
+                    back.style.display = 'block';
+                    next.style.display = 'block';
+                    break;
                 default:
                     init_month();
                     break;
@@ -301,6 +383,10 @@
                     break;
                 case 'create2':
                     draw_map(0, 0);
+                    break;
+                case 'start:
+                    let player = get_player(turn);
+                    draw_map(player.get_x(), player.get_y());
                     break;
                 default:
                     draw_month();
