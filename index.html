@@ -27,17 +27,26 @@
             opacity: 0.5;
         }
 
-        #back,
-        #next {
-            opacity: 0;
-        }
-
         .page {
             display: none;
         }
 
         .active {
             display: block;
+        }
+
+        #home0,
+        #home1,
+        #home2,
+        #home3,
+        #start0,
+        #start1,
+        #start2,
+        #start3,
+        #start4,
+        #other0 {
+            background-color: lightgray;
+            color: black;
         }
 
         /* 横長のディスプレイ */
@@ -58,23 +67,7 @@
                 height: 30vh;
             }
 
-            #back {
-                position: absolute;
-                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
-                top: 60vh;
-                width: calc(100vh * 1.6 / 3);
-                height: 30vh;
-            }
-
-            #next {
-                position: absolute;
-                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 0.4 / 3) + (100vh * 1.6 / 3));
-                top: 60vh;
-                width: calc(100vh * 1.6 / 3);
-                height: 30vh;
-            }
-
-            #home1 {
+            #home0 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 10vh;
@@ -82,7 +75,7 @@
                 height: 10vh;
             }
 
-            #home2 {
+            #home1 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 22vh;
@@ -90,7 +83,7 @@
                 height: 10vh;
             }
 
-            #home3 {
+            #home2 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 34vh;
@@ -98,7 +91,7 @@
                 height: 10vh;
             }
 
-            #home4 {
+            #home3 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 4 / 3 * 0.1));
                 top: 46vh;
@@ -114,7 +107,15 @@
                 height: 10vh;
             }
 
-            #dice {
+            #start0 {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 11/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #start1 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
                 top: calc(100vh * 13/22);
@@ -122,7 +123,7 @@
                 height: calc(100vh * 1/11);
             }
 
-            #card {
+            #start2 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
                 top: calc(100vh * 15/22);
@@ -130,7 +131,7 @@
                 height: calc(100vh * 1/11);
             }
 
-            #search {
+            #start3 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
                 top: calc(100vh * 17/22);
@@ -138,7 +139,15 @@
                 height: calc(100vh * 1/11);
             }
 
-            #other {
+            #start4 {
+                position: absolute;
+                left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 19/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #other0 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
                 top: calc(100vh * 19/22);
@@ -165,23 +174,7 @@
                 height: calc(100vw * 3 / 4 * 0.3);
             }
 
-            #back {
-                position: absolute;
-                left: 10vw;
-                top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.6));
-                width: 40vw;
-                height: calc(100vw * 3 / 4 * 0.3);
-            }
-
-            #next {
-                position: absolute;
-                left: 50vw;
-                top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.6));
-                width: 40vw;
-                height: calc(100vw * 3 / 4 * 0.3);
-            }
-
-            #home1 {
+            #home0 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.1));
@@ -189,7 +182,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home2 {
+            #home1 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.22));
@@ -197,7 +190,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home3 {
+            #home2 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.34));
@@ -205,7 +198,7 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #home4 {
+            #home3 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100vh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.46));
@@ -221,7 +214,15 @@
                 height: calc(100vw * 3 / 4 * 0.1);
             }
 
-            #dice {
+            #start0 {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 11/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #start1 {
                 position: absolute;
                 left: calc(100vw * 3/4 * 1/11);
                 top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 13/22));
@@ -229,7 +230,7 @@
                 height: calc(100vw * 3/4 * 1/11);
             }
 
-            #card {
+            #start2 {
                 position: absolute;
                 left: calc(100vw * 3/4 * 1/11);
                 top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 15/22));
@@ -237,7 +238,7 @@
                 height: calc(100vw * 3/4 * 1/11);
             }
 
-            #search {
+            #start3 {
                 position: absolute;
                 left: calc(100vw * 3/4 * 1/11);
                 top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 17/22));
@@ -245,7 +246,15 @@
                 height: calc(100vw * 3/4 * 1/11);
             }
 
-            #other {
+            #start4 {
+                position: absolute;
+                left: calc(100vw * 3/4 * 1/11);
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #other0 {
                 position: absolute;
                 left: calc(100vw * 3/4 * 1/11);
                 top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
@@ -260,13 +269,11 @@
 <body>
     <canvas id="win"></canvas>
     <p id="msg"></p>
-    <button id="back"></button>
-    <button id="next"></button>
     <div id="home" class="page active">
-        <button id="home1">つづきから</button>
-        <button id="home2" onclick="changePage('create1')">はじめから</button>
-        <button id="home3">設定</button>
-        <button id="home4">遊び方</button>
+        <button id="home0">つづきから</button>
+        <button id="home1" onclick="changePage('create1')">はじめから</button>
+        <button id="home2">設定</button>
+        <button id="home3">遊び方</button>
     </div>
     <div id="create1" class="page">
         <input id="player1" type="text" maxlength="6">
@@ -275,121 +282,390 @@
         <input id="player4" type="text" maxlength="6">
     </div>
     <div id="create2" class="page"></div>
-    <div id="apr" class="page"></div>
-    <div id="may" class="page"></div>
-    <div id="jun" class="page"></div>
-    <div id="jul" class="page"></div>
-    <div id="aug" class="page"></div>
-    <div id="sep" class="page"></div>
-    <div id="oct" class="page"></div>
-    <div id="nov" class="page"></div>
-    <div id="dec" class="page"></div>
-    <div id="jan" class="page"></div>
-    <div id="feb" class="page"></div>
-    <div id="mar" class="page"></div>
     <div id="start" class="page">
-        <button id="dice" onclick="changePage('dice')">サイコロ</button>
-        <button id="card" onclick="changePage('card')">カード</button>
-        <button id="search" onclick="changePage('search')">探索</button>
-        <button id="other" onclick="changePage('other')">その他</button>
+        <button id="start0" onclick="changePage('dice')">サイコロ</button>
+        <button id="start1" onclick="changePage('card')">カード</button>
+        <button id="start2" onclick="changePage('item')">アイテム</button>
+        <button id="start3" onclick="changePage('search')">探索</button>
+        <button id="start4" onclick="changePage('other')">その他</button>
     </div>
+    <div id="movement" class="page"></div>
     <div id="dice" class="page"></div>
-    <div id="card" class="page"></div>
+    <div id="card" class="page">
+        <button id="card0" onclick=""></button>
+    </div>
+    <div id="item" class="page"></div>
     <div id="search" class="page"></div>
-    <div id="other" class="page"></div>
+    <div id="other" class="page">
+        <button id="other0" onclick="next_start()">スキップ</button>
+    </div>
+    <div id="property_station" class="page"></div>
+    <div id="blue_station" class="page"></div>
+    <div id="card_station" class="page"></div>
+    <div id="red_station" class="page"></div>
     <script type="module">
         import init_wasm, {
             draw_map,
-            Player, add_player, get_player
+            move_train,
+            add_player,
+            roll,
+            next_turn,
+            get_cards,
+            stop_property_station, stop_blue_station, stop_card_station, stop_red_station,
         } from "./pkg/frontend.js";
-        
+
         const win = document.getElementById('win');
         const ctx = win.getContext('2d');
         const msg = document.getElementById('msg');
-        const back = document.getElementById('back');
-        const next = document.getElementById('next');
-        let initialized = false;
         let page = 'home';
-        let turn = 0;
+        let selected = 0;
+        let selected_range = 0;
         
         async function initFrontend() {
             await init_wasm();
         }
-    </script>
-    <script src="month.js"></script>
-    <script>
+
+        function next_start(key) {
+            next_turn();
+            changePage('start');
+        }
+
+        function btn_sys(key) {
+            let new_selected;
+            switch(key) {
+                case 'Enter': {
+                    let btn = document.getElementById(`${page}${selected}`);
+                    let color = btn.style.color;
+                    btn.style.color = btn.style.backgroundColor;
+                    btn.style.backgroundColor = color;
+                    btn.onclick();
+                    return;
+                }
+                case 'J': {
+                    new_selected = selected_range - 1;
+                    break;
+                }
+                case 'j': {
+                    new_selected = (selected + 1) % selected_range;
+                    break;
+                }
+                case 'K': {
+                    new_selected = 0;
+                    break;
+                }
+                case 'k': {
+                    new_selected = (selected + -1 + selected_range) % selected_range;
+                    break;
+                }
+                default: {
+                    return;
+                }
+            }
+            if(selected != selected_range) {
+                let btn = document.getElementById(`${page}${selected}`);
+                let color = btn.style.color;
+                btn.style.color = btn.style.backgroundColor;
+                btn.style.backgroundColor = color;
+            }
+            selected = new_selected;
+            let btn = document.getElementById(`${page}${selected}`);
+            let color = btn.style.color;
+            btn.style.color = btn.style.backgroundColor;
+            btn.style.backgroundColor = color;
+        }
+
         function init() {
             switch (page) {
-                case 'home':
-                    msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
-                    back.onclick = () => {
+                case 'start': {
+                    selected = selected_range = 5;
+                    msg.textContent = "";
+                    window.onkeydown = (e) => {
+                        btn_sys(e.key);
                     };
-                    next.onclick = () => {
-                    };
+                    btn_sys('K');
+                    msg.style.display = 'none';
                     break;
-                case 'create1':
-                    msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
-                    back.onclick = () => {
-                        changePage('home');
-                    };
-                    next.onclick = () => {
-                        const player1 = document.getElementById('player1');
-                        const player2 = document.getElementById('player2');
-                        const player3 = document.getElementById('player3');
-                        const player4 = document.getElementById('player4');
-                        if(player1.value != "") {
-                            add_player(player1.value);
-                            if(player2.value != "") {
-                                add_player(player2.value);
-                                if(player3.value != "") {
-                                    add_player(player3.value);
-                                    if(player4.value != "") {
-                                        add_player(player4.value);
-                                    }
+                }
+                case 'movement': {
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'h': {
+                                let result = move_train('w');
+                                if(result == "property") {
+                                    changePage('property_station');
+                                } else if(result == "blue") {
+                                    changePage('blue_station');
+                                } else if(result == "card") {
+                                    changePage('card_station');
+                                } else if(result == "red") {
+                                    changePage('red_station');
+                                } else {
+                                    msg.textContent = `残り${result}マス`
                                 }
+                                break;
                             }
-                            changePage('create2');
+                            case 'j': {
+                                let result = move_train('s');
+                                if(result == "property") {
+                                    changePage('property_station');
+                                } else if(result == "blue") {
+                                    changePage('blue_station');
+                                } else if(result == "card") {
+                                    changePage('card_station');
+                                } else if(result == "red") {
+                                    changePage('red_station');
+                                } else {
+                                    msg.textContent = `残り${result}マス`
+                                }
+                                break;
+                            }
+                            case 'k': {
+                                let result = move_train('n');
+                                if(result == "property") {
+                                    changePage('property_station');
+                                } else if(result == "blue") {
+                                    changePage('blue_station');
+                                } else if(result == "card") {
+                                    changePage('card_station');
+                                } else if(result == "red") {
+                                    changePage('red_station');
+                                } else {
+                                    msg.textContent = `残り${result}マス`
+                                }
+                                break;
+                            }
+                            case 'l': {
+                                let result = move_train('e');
+                                if(result == "property") {
+                                    changePage('property_station');
+                                } else if(result == "blue") {
+                                    changePage('blue_station');
+                                } else if(result == "card") {
+                                    changePage('card_station');
+                                } else if(result == "red") {
+                                    changePage('red_station');
+                                } else {
+                                    msg.textContent = `残り${result}マス`
+                                }
+                                break;
+                            }
                         }
                     };
                     break;
-                case 'create2':
-                    msg.textContent = "本作の目標はお金を集めることではありません。様々な事象でポイントを集めることです。その事象の中には、総資産が少なくないと発生しないものもあります。まずは100ポイントを目指して頑張ってください";
-                    back.onclick = () => {
-                        changePage('create1');
-                    };
-                    next.onclick = () => {
-                        changePage('spr');
-                    };
-                    break;
-                case 'start':
-                    msg.textContent = "";
-                    back.onclick = () => {};
-                    next.onclick = () => {};
+                }
+                case 'dice': {
                     msg.style.display = 'block';
-                    back.style.display = 'block';
-                    next.style.display = 'block';
+                    msg.textContent = `${roll()}マス進めます`;
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter': {
+                                changePage('movement');
+                                break;
+                            }
+                            case 'Escape': {
+                                break;
+                            }
+                        }
+                    };
                     break;
-                default:
-                    init_month();
+                }
+                case 'card': {
+                    msg.style.display = 'block';
+                    const cards = get_cards();
+                    if(cards.length == 0) {
+                        msg.textContent = 'カードは一枚も持っていません';
+                        window.onkeydown = (e) => {
+                            switch(e.key) {
+                                case 'Enter': {
+                                    next_turn();
+                                    changePage('start');
+                                    break;
+                                }
+                            }
+                        };
+                    } else {
+                        msg.textContent = `カードを${cards.length}枚も持っています`;
+                        window.onkeydown = (e) => {
+                            switch(e.key) {
+                                case 'Enter': {
+                                    next_turn();
+                                    changePage('start');
+                                    break;
+                                }
+                            }
+                        };
+                    }
                     break;
+                }
+                case 'item': {
+                    msg.textContent = "まだこのページは完成していません";
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Escape': {
+                                changePage('start');
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'search': {
+                    msg.textContent = "まだこのページは完成していません";
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Escape': {
+                                changePage('start');
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'other': {
+                    selected_range = 1;
+                    window.onkeydown = (e) => {
+                        btn_sys(e.key);
+                    };
+                    break;
+                }
+                case 'property_station': {
+                    msg.textContent = `${stop_property_station()}駅に止まりました`;
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter': {
+                                next_turn();
+                                changePage('start');
+                                break;
+                            }
+                            case 'Escape': {
+                                break;
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'blue_station': {
+                    msg.textContent = `${stop_blue_station()}万円手に入りました`;
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter': {
+                                next_turn();
+                                changePage('start');
+                                break;
+                            }
+                            case 'Escape': {
+                                break;
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'card_station': {
+                    msg.textContent = `${stop_card_station()}カードを手に入れた`;
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter': {
+                                next_turn();
+                                changePage('start');
+                                break;
+                            }
+                            case 'Escape': {
+                                break;
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'red_station': {
+                    msg.textContent = `${stop_red_station()}万円失いました`;
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter': {
+                                next_turn();
+                                changePage('start');
+                                break;
+                            }
+                            case 'Escape': {
+                                break;
+                            }
+                        }
+                    };
+                    break;
+                }
+                case 'home': {
+                    selected = selected_range = 4;
+                    btn_sys('K');
+                    msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
+                    window.onkeydown = (e) => {
+                        btn_sys(e.key);
+                    };
+                    break;
+                }
+                case 'create1': {
+                    msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter':
+                                const player1 = document.getElementById('player1');
+                                const player2 = document.getElementById('player2');
+                                const player3 = document.getElementById('player3');
+                                const player4 = document.getElementById('player4');
+                                if(player1.value != "") {
+                                    add_player(player1.value);
+                                    if(player2.value != "") {
+                                        add_player(player2.value);
+                                        if(player3.value != "") {
+                                            add_player(player3.value);
+                                            if(player4.value != "") {
+                                                add_player(player4.value);
+                                            }
+                                        }
+                                    }
+                                    changePage('create2');
+                                }
+                                break;
+                            case 'Escape':
+                                changePage('home');
+                                break;
+                        }
+                    };
+                    break;
+                }
+                case 'create2': {
+                    msg.textContent = "本作の目標はお金を集めることではありません。様々な事象でポイントを集めることです。その事象の中には、総資産が少なくないと発生しないものもあります。まずは100ポイントを目指して頑張ってください";
+                    window.onkeydown = (e) => {
+                        switch(e.key) {
+                            case 'Enter':
+                                changePage('create1');
+                                break;
+                            case 'Escape':
+                                changePage('start');
+                                break;
+                        }
+                    };
+                    break;
+                }
             }
         }
 
         function draw() {
             switch (page) {
-                case 'home':
+                case 'start': {
+                    draw_map();
                     break;
-                case 'create1':
+                }
+                case 'dice': {
+                    draw_map();
                     break;
-                case 'create2':
-                    draw_map(0, 0);
+                }
+                case 'home': {
                     break;
-                case 'start:
-                    let player = get_player(turn);
-                    draw_map(player.get_x(), player.get_y());
+                }
+                case 'create1': {
                     break;
-                default:
-                    draw_month();
+                }
+                case 'create2': {
+                    draw_map();
+                    break;
+                }
             }
         }
 
@@ -414,12 +690,12 @@
             draw();
         }
 
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
             document.addEventListener('touchmove', preventScroll, { passive: false });
             document.addEventListener('wheel', preventScroll, { passive: false });
+            await initFrontend();
             changePage('home');
             resizeWin();
-            initFrontend();
         });
 
         window.addEventListener('resize', () => {

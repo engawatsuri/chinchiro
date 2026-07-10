@@ -1,37 +1,141 @@
+use wasm_bindgen::prelude::*;
+use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 use std::sync::{LazyLock, Mutex};
+use rand::Rng;
+use crate::*;
 
+#[derive(Clone)]
+pub struct Card {
+    pub name: String,
+    pub explain: String,
+    pub process: fn() -> String,
+}
+
+#[derive(Default, Clone)]
+pub struct Item {
+    pub name: String,
+}
+
+#[derive(Default, Clone)]
 pub struct Player {
-    name: String,
-    x: i32,
-    y: i32,
-    hand_monay: i64,
+    pub name: String,
+    pub pubx: i32,
+    pub x: i32,
+    pub y: i32,
+    pub dir: String,
+    pub hand_money: i64,
+    pub card: Vec<usize>,
+    pub item: Vec<Item>,
 }
 
-impl Player {
-    pub fn get_name(&self) -> &str {
-        &(self.name)
+pub static TURN: LazyLock<Mutex<usize>> = LazyLock::new(|| Mutex::new(0));
+pub static PLAYERS: LazyLock<Mutex<Vec<Player>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+pub static DISTANCE: LazyLock<Mutex<u32>> = LazyLock::new(|| Mutex::new(0));
+pub static HISTORY: LazyLock<Mutex<Vec<String>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+
+impl Card {
+    pub fn new(name: &str, explain: &str, process: fn() -> String) -> Self {
+        Self {
+            name: name.to_string(),
+            explain: explain.to_string(),
+            process: process,
+        }
     }
-    pub fn get_x(&self) -> f64 {
-        self.x as f64
+
+    fn billion() -> String {
+        let mut players = PLAYERS.lock().unwrap();
+        let turn = TURN.lock().unwrap();
+        players[*turn].hand_money += 100000;
+        "10億円を手に入れた".to_string()
     }
-    pub fn get_y(&self) -> f64 {
-        self.y as f64
+
+    fn debt_cancellation_order() -> String {
+        let mut players = PLAYERS.lock().unwrap();
+        for player in players.iter_mut() {
+            if player.hand_money < 0 {
+                player.hand_money = 0;
+            }
+        }
+        "皆さんの借金は帳消しになりました".to_string()
     }
 }
 
-static PLAYERS: LazyLock<Mutex<Vec<Player>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+pub static CARD_LIST: LazyLock<[Card; 2]> = LazyLock::new(|| {[
+    Card::new("10億円", "使用すると10億円手に入れることができます", Card::billion),
+    Card::new("徳政令", "全員の借金を無くします", Card::debt_cancellation_order),
+]});
 
+#[wasm_bindgen]
 pub fn add_player(name: &str) {
     let mut players = PLAYERS.lock().unwrap();
-    players.push(Player {
-        name: name.to_string();
-        x: 0,
-        y: 0,
-        hand_monay: 0,
-    });
+    let mut player = Player::default();
+    player.name = name.to_string();
+    players.push(player);
 }
 
-pub fn get_player(id: f64) -> Player {
-    let mut players = PLAYERS.lock().unwrap();
-    players[id as usize]
+#[wasm_bindgen]
+pub fn get_cards() -> Vec<String> {
+    let players = PLAYERS.lock().unwrap();
+    let turn = TURN.lock().unwrap();
+    let mut cards: Vec<String> = Vec::new();
+    for card_id in players[*turn].card.iter() {
+        cards.push(CARD_LIST[*card_id].name.clone());
+    }
+    cards
+}
+
+#[wasm_bindgen]
+pub fn next_turn() -> usize {
+    let mut turn = TURN.lock().unwrap();
+    let mut month = MONTH.lock().unwrap();
+    let mut year = YEAR.lock().unwrap();
+    let players = PLAYERS.lock().unwrap();
+    *turn = (*turn + 1) % players.len();
+    if *turn == 0 {
+        *month = (*month + 1) % 12 + 1;
+        if *month == 1 {
+            *year += 1;
+        }
+    }
+    *turn
+}
+
+pub fn roll() -> u32 {
+    let turn = TURN.lock().unwrap();
+    let players = PLAYERS.lock().unwrap();
+    let mut distance = DISTANCE.lock().unwrap();
+    let mut history = HISTORY.lock().unwrap();
+    let dice0 = rand::thread_rng().gen_range(1..7);
+    let dice1 = rand::thread_rng().gen_range(1..7);
+    let dice2 = rand::thread_rng().gen_range(1..7);
+
+    *distance = if dice0 == 1 && dice1 == 1 && dice2 == 1 {
+        30
+    } else if dice0 == dice1 && dice1 == dice2 {
+        dice0 * 3
+    } else if dice0 == 4 && dice1 == 5 && dice2 == 6 {
+        10
+    } else if dice0 == dice1 {
+        dice2
+    } else if dice1 == dice2 {
+        dice0
+    } else if dice2 == dice0 {
+        dice1
+    } else {
+        1
+    } as u32;
+
+    history.clear();
+
+    *distance
+}
+
+pub fn get_color(id: usize) -> Result<String, JsValue> {
+    match id {
+        0 => Ok("blue".to_string()),
+        1 => Ok("red".to_string()),
+        2 => Ok("yellow".to_string()),
+        3 => Ok("green".to_string()),
+        _ => Err(JsValue::from_str(&format!("color: {}: 異常な値です", id))),
+    }
 }
