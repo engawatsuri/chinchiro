@@ -70,6 +70,7 @@ pub fn add_player(name: &str) {
     let mut players = PLAYERS.lock().unwrap();
     let mut player = Player::default();
     player.name = name.to_string();
+    player.dir = "w".to_string();
     players.push(player);
 }
 
@@ -100,30 +101,34 @@ pub fn next_turn() -> usize {
     *turn
 }
 
+#[wasm_bindgen]
 pub fn roll() -> u32 {
     let turn = TURN.lock().unwrap();
     let players = PLAYERS.lock().unwrap();
     let mut distance = DISTANCE.lock().unwrap();
     let mut history = HISTORY.lock().unwrap();
-    let dice0 = rand::thread_rng().gen_range(1..7);
-    let dice1 = rand::thread_rng().gen_range(1..7);
-    let dice2 = rand::thread_rng().gen_range(1..7);
-
-    *distance = if dice0 == 1 && dice1 == 1 && dice2 == 1 {
-        30
-    } else if dice0 == dice1 && dice1 == dice2 {
-        dice0 * 3
-    } else if dice0 == 4 && dice1 == 5 && dice2 == 6 {
-        10
-    } else if dice0 == dice1 {
-        dice2
-    } else if dice1 == dice2 {
-        dice0
-    } else if dice2 == dice0 {
-        dice1
-    } else {
-        1
-    } as u32;
+    
+    loop {
+        let dice0 = rand::thread_rng().gen_range(1..7);
+        let dice1 = rand::thread_rng().gen_range(1..7);
+        let dice2 = rand::thread_rng().gen_range(1..7);
+        if dice0 == 1 && dice1 == 1 && dice2 == 1 {
+            *distance = 30;
+        } else if dice0 == dice1 && dice1 == dice2 {
+            *distance = dice0 * 3;
+        } else if dice0 == 4 && dice1 == 5 && dice2 == 6 {
+            *distance = 10;
+        } else if dice0 == dice1 {
+            *distance = dice2;
+        } else if dice1 == dice2 {
+            *distance = dice0;
+        } else if dice2 == dice0 {
+            *distance = dice1;
+        } else {
+            continue;
+        };
+        break;
+    }
 
     history.clear();
 

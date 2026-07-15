@@ -115,12 +115,12 @@ pub fn draw_map() -> Result<(), JsValue> {
                 if station.e != 0 && x == 4 {
                     ctx.fill_rect(left + station_size, top + station_size * 0.25, station_size * 0.5, station_size * 0.5);
                 } else if station.e != 0 {
-                    ctx.fill_rect(left + station_size, top + station_size * 0.25, station_size * 0.5, station_size * -1.0 + station_size * 3.5 * e);
+                    ctx.fill_rect(left + station_size, top + station_size * 0.25, station_size * -1.0 + station_size * 3.5 * e, station_size * 0.5);
                 }
                 if station.s != 0 && y == 3 {
                     ctx.fill_rect(left + station_size * 0.25, top + station_size, station_size * 0.25, station_size * 0.5);
                 } else if station.s != 0 {
-                    ctx.fill_rect(left + station_size * 0.25, top + station_size, station_size * -1.0 + station_size * 3.5 * s, station_size * 0.5);
+                    ctx.fill_rect(left + station_size * 0.25, top + station_size, station_size * 0.5, station_size * -1.0 + station_size * 3.5 * s);
                 }
             }
             left += station_size * 3.5;
@@ -163,7 +163,8 @@ pub fn draw_map() -> Result<(), JsValue> {
                         ctx.fill_rect(station_size * 0.5 + station_size * 3.5 * (player.x - center_x + 4) as f64 + station_size * 0.125, station_size * 0.25 + station_size * 3.5 * (player.y - center_y + 3) as f64 + station_size * 0.125, station_size * 1.375, station_size * 0.75);
                     }
                 }
-                &_ => {}
+                &_ => {
+                }
             }
         }
     }
@@ -176,10 +177,10 @@ pub fn draw_map() -> Result<(), JsValue> {
     ctx.set_text_baseline("top");
     ctx.set_font(&format!("{}px 'Meiryo UI'", width * 5.0/56.0));
     ctx.fill_text(&format!("{}社長", players[*turn].name), width * 25.0/112.0, width * 1.0/28.0);
-    ctx.fill_text(&format!("{}個", players[*turn].item.len()), width * 0.28125, width * 1.0/14.0);
+    ctx.fill_text(&format!("{}㌽", players[*turn].item.len()), width * 87.0/112.0, width * 1.0/14.0);
     ctx.set_font(&format!("{}px 'Meiryo UI'", width * 3.0/56.0));
     ctx.fill_text(&format!("{}円", players[*turn].hand_money), width * 25.0/112.0, width * 0.125);
-    ctx.fill_text(&format!("{}年目 {}月", year, month), width * 0.28125, width * 0.125);
+    ctx.fill_text(&format!("{}年目 {}月", year, month), width * 0.5, width * 0.125);
 
     Ok(())
 }
@@ -191,42 +192,46 @@ pub fn move_train(dir: &str) -> String {
     let mut distance = DISTANCE.lock().unwrap();
     let mut history = HISTORY.lock().unwrap();
 
+    web_sys::console::log_1(&format!("move_train {}", dir).into());
+
     let Some(station) = MAP.get(&(players[*turn].x, players[*turn].y)) else {
         return "".to_string();
     };
-    if dir == "n" && station.n != 0 && history[history.len() - 1] == "s" {
+    if dir == "n" && station.n != 0 && history.len() != 0 && history[history.len() - 1] == "s" {
         history.pop();
-        players[*turn].y += 1;
+        players[*turn].y -= 1;
         *distance += 1;
     } else if dir == "n" && station.n != 0 {
         players[*turn].y -= 1;
         *distance -= 1;
         history.push(dir.to_string());
-    } else if dir == "e" && station.e != 0 && history[history.len() - 1] == "w" {
+    } else if dir == "e" && station.e != 0 && history.len() != 0 && history[history.len() - 1] == "w" {
         history.pop();
-        players[*turn].x -= 1;
+        players[*turn].x += 1;
         *distance += 1;
     } else if dir == "e" && station.e != 0 {
         players[*turn].x += 1;
         *distance -= 1;
         history.push(dir.to_string());
-    } else if dir == "s" && station.s != 0 && history[history.len() - 1] == "n" {
+    } else if dir == "s" && station.s != 0 && history.len() != 0 && history[history.len() - 1] == "n" {
         history.pop();
-        players[*turn].y -= 1;
+        players[*turn].y += 1;
         *distance += 1;
     } else if dir == "s" && station.s != 0 {
         players[*turn].y += 1;
         *distance -= 1;
         history.push(dir.to_string());
-    } else if dir == "w" && station.w != 0 && history[history.len() - 1] == "e" {
+    } else if dir == "w" && station.w != 0 && history.len() != 0 && history[history.len() - 1] == "e" {
         history.pop();
-        players[*turn].x += 1;
+        players[*turn].x -= 1;
         *distance += 1;
     } else if dir == "w" && station.w != 0 {
         players[*turn].x -= 1;
         *distance -= 1;
         history.push(dir.to_string());
     }
+    players[*turn].dir = dir.to_string();
+
     if *distance == 0 {
         let Some(station) = MAP.get(&(players[*turn].x, players[*turn].y)) else {
             return "".to_string();
@@ -249,7 +254,6 @@ pub fn move_train(dir: &str) -> String {
             }
         }
     }
-    players[*turn].dir = dir.to_string();
     distance.to_string()
 }
 

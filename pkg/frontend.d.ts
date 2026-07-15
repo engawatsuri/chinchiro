@@ -11,6 +11,10 @@ export function move_train(dir: string): string;
 
 export function next_turn(): number;
 
+export function roll(): number;
+
+export function start(): void;
+
 export function stop_blue_station(): bigint;
 
 export function stop_card_station(): string;
@@ -29,17 +33,19 @@ export interface InitOutput {
     readonly stop_card_station: () => [number, number];
     readonly stop_property_station: () => [number, number];
     readonly stop_red_station: () => bigint;
+    readonly start: () => void;
     readonly add_player: (a: number, b: number) => void;
     readonly get_cards: () => [number, number];
     readonly next_turn: () => number;
+    readonly roll: () => number;
     readonly __wbindgen_exn_store: (a: number) => void;
     readonly __externref_table_alloc: () => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
+    readonly __wbindgen_free: (a: number, b: number, c: number) => void;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __externref_table_dealloc: (a: number) => void;
     readonly __externref_drop_slice: (a: number, b: number) => void;
-    readonly __wbindgen_free: (a: number, b: number, c: number) => void;
     readonly __wbindgen_start: () => void;
 }
 

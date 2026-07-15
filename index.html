@@ -44,9 +44,17 @@
         #start2,
         #start3,
         #start4,
-        #other0 {
+        #other0,
+        #movement_n,
+        #movement_e,
+        #movement_s,
+        #movement_w {
             background-color: lightgray;
             color: black;
+        }
+
+        .selected {
+            filter: invert(1);
         }
 
         /* 横長のディスプレイ */
@@ -150,6 +158,38 @@
             #other0 {
                 position: absolute;
                 left: calc((100vw - (100vh * 4 / 3)) / 2 + (100vh * 2/22));
+                top: calc(100vh * 19/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #movement_n {
+                position: absolute;
+                left: calc(100vw - (100vw - (100vh * 4 / 3)) / 2 - (100vh * 7/22));
+                top: calc(100vh * 13/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #movement_e {
+                position: absolute;
+                left: calc(100vw - (100vw - (100vh * 4 / 3)) / 2 - (100vh * 7/22));
+                top: calc(100vh * 15/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #movement_s {
+                position: absolute;
+                left: calc(100vw - (100vw - (100vh * 4 / 3)) / 2 - (100vh * 7/22));
+                top: calc(100vh * 17/22);
+                width: calc(100vh * 5/22);
+                height: calc(100vh * 1/11);
+            }
+
+            #movement_w {
+                position: absolute;
+                left: calc(100vw - (100vw - (100vh * 4 / 3)) / 2 - (100vh * 7/22));
                 top: calc(100vh * 19/22);
                 width: calc(100vh * 5/22);
                 height: calc(100vh * 1/11);
@@ -261,6 +301,38 @@
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
             }
+
+            #movement_n {
+                position: absolute;
+                left: calc(100vw - (100vw * 3/4 * 7/22));
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 13/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #movement_e {
+                position: absolute;
+                left: calc(100vw - (100vw * 3/4 * 7/22));
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 15/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #movement_s {
+                position: absolute;
+                left: calc(100vw - (100vw * 3/4 * 7/22));
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 17/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
+
+            #movement_w {
+                position: absolute;
+                left: calc(100vw - (100vw * 3/4 * 7/22));
+                top: calc((100vh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
+                width: calc(100vw * 3/4 * 5/22);
+                height: calc(100vw * 3/4 * 1/11);
+            }
         }
     </style>
     <link rel="stylesheet" href="create.css">
@@ -268,7 +340,7 @@
 
 <body>
     <canvas id="win"></canvas>
-    <p id="msg"></p>
+    <btn id="msg" onclick="keydown('Enter')"></btn>
     <div id="home" class="page active">
         <button id="home0">つづきから</button>
         <button id="home1" onclick="changePage('create1')">はじめから</button>
@@ -289,7 +361,12 @@
         <button id="start3" onclick="changePage('search')">探索</button>
         <button id="start4" onclick="changePage('other')">その他</button>
     </div>
-    <div id="movement" class="page"></div>
+    <div id="movement" class="page">
+        <button id="movement_n" onclick="keydown('h')">西</button>
+        <button id="movement_e" onclick="keydown('j')">南</button>
+        <button id="movement_s" onclick="keydown('k')">北</button>
+        <button id="movement_w" onclick="keydown('l')">東</button>
+    </div>
     <div id="dice" class="page"></div>
     <div id="card" class="page">
         <button id="card0" onclick=""></button>
@@ -320,6 +397,8 @@
         let page = 'home';
         let selected = 0;
         let selected_range = 0;
+        let initialized = false;
+        let movement_result;
         
         async function initFrontend() {
             await init_wasm();
@@ -330,14 +409,18 @@
             changePage('start');
         }
 
+        function keydown(key) {
+            window.onkeydown(new KeyboardEvent("keydown", {
+                key: key
+            }));
+        }
+
         function btn_sys(key) {
             let new_selected;
             switch(key) {
                 case 'Enter': {
                     let btn = document.getElementById(`${page}${selected}`);
-                    let color = btn.style.color;
-                    btn.style.color = btn.style.backgroundColor;
-                    btn.style.backgroundColor = color;
+                    btn.classList.remove("selected");
                     btn.onclick();
                     return;
                 }
@@ -361,23 +444,22 @@
                     return;
                 }
             }
-            if(selected != selected_range) {
+            if(initialized) {
                 let btn = document.getElementById(`${page}${selected}`);
-                let color = btn.style.color;
-                btn.style.color = btn.style.backgroundColor;
-                btn.style.backgroundColor = color;
+                btn.classList.remove("selected");
+            } else {
+                initialized = true;
             }
             selected = new_selected;
             let btn = document.getElementById(`${page}${selected}`);
-            let color = btn.style.color;
-            btn.style.color = btn.style.backgroundColor;
-            btn.style.backgroundColor = color;
+            btn.classList.add("selected");
         }
 
         function init() {
             switch (page) {
                 case 'start': {
-                    selected = selected_range = 5;
+                    initialized = false;
+                    selected_range = 5;
                     msg.textContent = "";
                     window.onkeydown = (e) => {
                         btn_sys(e.key);
@@ -388,67 +470,40 @@
                 }
                 case 'movement': {
                     window.onkeydown = (e) => {
+                        console.log("keydown", e.key, e.repeat);
+
                         switch(e.key) {
                             case 'h': {
-                                let result = move_train('w');
-                                if(result == "property") {
-                                    changePage('property_station');
-                                } else if(result == "blue") {
-                                    changePage('blue_station');
-                                } else if(result == "card") {
-                                    changePage('card_station');
-                                } else if(result == "red") {
-                                    changePage('red_station');
-                                } else {
-                                    msg.textContent = `残り${result}マス`
-                                }
+                                movement_result = move_train('w');
                                 break;
                             }
                             case 'j': {
-                                let result = move_train('s');
-                                if(result == "property") {
-                                    changePage('property_station');
-                                } else if(result == "blue") {
-                                    changePage('blue_station');
-                                } else if(result == "card") {
-                                    changePage('card_station');
-                                } else if(result == "red") {
-                                    changePage('red_station');
-                                } else {
-                                    msg.textContent = `残り${result}マス`
-                                }
+                                movement_result = move_train('s');
                                 break;
                             }
                             case 'k': {
-                                let result = move_train('n');
-                                if(result == "property") {
-                                    changePage('property_station');
-                                } else if(result == "blue") {
-                                    changePage('blue_station');
-                                } else if(result == "card") {
-                                    changePage('card_station');
-                                } else if(result == "red") {
-                                    changePage('red_station');
-                                } else {
-                                    msg.textContent = `残り${result}マス`
-                                }
+                                movement_result = move_train('n');
                                 break;
                             }
                             case 'l': {
-                                let result = move_train('e');
-                                if(result == "property") {
-                                    changePage('property_station');
-                                } else if(result == "blue") {
-                                    changePage('blue_station');
-                                } else if(result == "card") {
-                                    changePage('card_station');
-                                } else if(result == "red") {
-                                    changePage('red_station');
-                                } else {
-                                    msg.textContent = `残り${result}マス`
-                                }
+                                movement_result = move_train('e');
                                 break;
                             }
+                            default: {
+                                return;
+                            }
+                        }
+                        draw();
+                        if(movement_result == "property") {
+                            changePage('property_station');
+                        } else if(movement_result == "blue") {
+                            changePage('blue_station');
+                        } else if(movement_result == "card") {
+                            changePage('card_station');
+                        } else if(movement_result == "red") {
+                            changePage('red_station');
+                        } else {
+                            msg.textContent = `残り${movement_result}マス`;
                         }
                     };
                     break;
@@ -456,17 +511,7 @@
                 case 'dice': {
                     msg.style.display = 'block';
                     msg.textContent = `${roll()}マス進めます`;
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter': {
-                                changePage('movement');
-                                break;
-                            }
-                            case 'Escape': {
-                                break;
-                            }
-                        }
-                    };
+                    changePage('movement');
                     break;
                 }
                 case 'card': {
@@ -520,7 +565,9 @@
                     break;
                 }
                 case 'other': {
+                    initialized = false;
                     selected_range = 1;
+                    btn_sys('K');
                     window.onkeydown = (e) => {
                         btn_sys(e.key);
                     };
@@ -591,7 +638,8 @@
                     break;
                 }
                 case 'home': {
-                    selected = selected_range = 4;
+                    initialized = false;
+                    selected_range = 4;
                     btn_sys('K');
                     msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
                     window.onkeydown = (e) => {
@@ -634,10 +682,10 @@
                     window.onkeydown = (e) => {
                         switch(e.key) {
                             case 'Enter':
-                                changePage('create1');
+                                changePage('start');
                                 break;
                             case 'Escape':
-                                changePage('start');
+                                changePage('create1');
                                 break;
                         }
                     };
@@ -647,12 +695,28 @@
         }
 
         function draw() {
+            ctx.clearRect(0, 0, win.width, win.height);
             switch (page) {
                 case 'start': {
                     draw_map();
                     break;
                 }
-                case 'dice': {
+                case 'movement': {
+                    draw_map();
+                    break;
+                }
+                case 'dice':
+                case 'card':
+                case 'item':
+                case 'search':
+                case 'other': {
+                    draw_map();
+                    break;
+                }
+                case 'property_station':
+                case 'blue_station':
+                case 'card_station':
+                case 'red_station': {
                     draw_map();
                     break;
                 }
@@ -676,6 +740,9 @@
             init();
             draw();
         }
+
+        globalThis.changePage = changePage;
+        globalThis.keydown = keydown;
 
         function preventScroll(e) {
             e.preventDefault();
