@@ -755,7 +755,7 @@
             win.height = Math.round(rect.height * dpr);
             win.style.width = rect.width + 'px';
             win.style.height = rect.height + 'px';
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             draw();
         }
 
