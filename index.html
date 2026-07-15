@@ -751,12 +751,10 @@
         function resizeWin() {
             const dpr = window.devicePixelRatio || 1;
             const rect = win.getBoundingClientRect();
-            const display_width = win.width;
-            const display_height = win.height;
             win.width = Math.round(rect.width * dpr);
             win.height = Math.round(rect.height * dpr);
-            win.style.width = display_width + 'px';
-            win.style.height = display_height + 'px';
+            win.style.width = rect.width + 'px';
+            win.style.height = rect.height + 'px';
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             draw();
         }
@@ -774,10 +772,7 @@
             });
         });
 
-        window.addEventListener('resize', () => {
-            resizeWin();
-        });
-
+        window.addEventListener('resize', resizeWin);
     </script>
 </body>
 
