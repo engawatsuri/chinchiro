@@ -19,6 +19,16 @@ features = [
   "console",
   "Window",
   "Document",
+  "HtmlElement",
+  "HtmlButtonElement",
   "HtmlCanvasElement",
-  "CanvasRenderingContext2d"
+  "HtmlInputElement",
+  "DomRect",
+  "CanvasRenderingContext2d",
+  "CssStyleDeclaration",
+  "NodeList",
+  "Node",
+  "Element",
+  "DomTokenList",
+  "KeyboardEvent"
 ]

@@ -1,51 +1,28 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export function add_player(name: string): void;
+export function change_page(id: string): void;
 
-export function draw_map(): void;
-
-export function get_cards(): string[];
-
-export function move_train(dir: string): string;
-
-export function next_turn(): number;
-
-export function roll(): number;
+export function resize_win(): void;
 
 export function start(): void;
-
-export function stop_blue_station(): bigint;
-
-export function stop_card_station(): string;
-
-export function stop_property_station(): string;
-
-export function stop_red_station(): bigint;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
-    readonly draw_map: () => [number, number];
-    readonly move_train: (a: number, b: number) => [number, number];
-    readonly stop_blue_station: () => bigint;
-    readonly stop_card_station: () => [number, number];
-    readonly stop_property_station: () => [number, number];
-    readonly stop_red_station: () => bigint;
+    readonly change_page: (a: number, b: number) => [number, number];
+    readonly resize_win: () => [number, number];
     readonly start: () => void;
-    readonly add_player: (a: number, b: number) => void;
-    readonly get_cards: () => [number, number];
-    readonly next_turn: () => number;
-    readonly roll: () => number;
+    readonly wasm_bindgen_419603505b2ee6f4___convert__closures_____invoke___web_sys_9e847bcaf5602b4e___features__gen_KeyboardEvent__KeyboardEvent______true_: (a: number, b: number, c: any) => void;
+    readonly __wbindgen_malloc: (a: number, b: number) => number;
+    readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;
     readonly __externref_table_alloc: () => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_free: (a: number, b: number, c: number) => void;
-    readonly __wbindgen_malloc: (a: number, b: number) => number;
-    readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
+    readonly __wbindgen_destroy_closure: (a: number, b: number) => void;
     readonly __externref_table_dealloc: (a: number) => void;
-    readonly __externref_drop_slice: (a: number, b: number) => void;
     readonly __wbindgen_start: () => void;
 }
 

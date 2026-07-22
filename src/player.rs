@@ -3,6 +3,7 @@ use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 use std::sync::{LazyLock, Mutex};
 use rand::Rng;
 use crate::*;
+use crate::draw::*;
 
 #[derive(Clone)]
 pub struct Card {
@@ -22,16 +23,121 @@ pub struct Player {
     pub pubx: i32,
     pub x: i32,
     pub y: i32,
-    pub dir: String,
+    pub dir: Dir,
     pub hand_money: i64,
     pub card: Vec<usize>,
     pub item: Vec<Item>,
+    pub color: String,
+}
+
+impl Player {
+    pub fn go(&mut self, dir: Dir) -> Result<Option<Station>, JsValue> {
+        let mut distance = DISTANCE.lock().unwrap();
+        let mut history = HISTORY.lock().unwrap();
+
+        let station = MAP.get(&(self.x, self.y)).ok_or(format!("no found station at ({}, {})", self.x, self.y)).unwrap();
+        if dir == Dir::North && station.north != 0 {
+            self.y -= station.north as i32;
+            if history.len() != 0 && history[history.len() - 1] == Dir::South {
+                *distance += 1;
+                history.pop();
+            } else {
+                *distance -= 1;
+                history.push(dir.clone());
+            }
+        } else if dir == Dir::East && station.east != 0 {
+            self.x += station.east as i32;
+            if history.len() != 0 && history[history.len() - 1] == Dir::West {
+                *distance += 1;
+                history.pop();
+            } else {
+                *distance -= 1;
+                history.push(dir.clone());
+            }
+        } else if dir == Dir::South && station.south != 0 {
+            self.y += station.south as i32;
+            if history.len() != 0 && history[history.len() - 1] == Dir::North {
+                *distance += 1;
+                history.pop();
+            } else {
+                *distance -= 1;
+                history.push(dir.clone());
+            }
+        } else if dir == Dir::West && station.west != 0 {
+            self.x -= station.west as i32;
+            if history.len() != 0 && history[history.len() - 1] == Dir::East {
+                *distance += 1;
+                history.pop();
+            } else {
+                *distance -= 1;
+                history.push(dir.clone());
+            }
+        }
+        self.dir = dir.clone();
+
+        if *distance == 0 {
+            let station = MAP.get(&(self.x, self.y)).ok_or(format!("no found station at ({}, {})", self.x, self.y)).unwrap();
+            Ok(Some(station.clone()))
+        } else {
+            Ok(None)
+        }
+    }
+
+    pub fn roll(&self) -> [u32; 3] {
+        let mut distance = DISTANCE.lock().unwrap();
+        let mut history = HISTORY.lock().unwrap();
+
+        history.clear();
+        loop {
+            let dices: [u32; 3] = [
+                rand::thread_rng().gen_range(1..7),
+                rand::thread_rng().gen_range(1..7),
+                rand::thread_rng().gen_range(1..7),
+            ];
+            if dices[0] == 1 && dices[1] == 1 && dices[2] == 1 {
+                *distance = 30;
+            } else if dices[0] == dices[1] && dices[1] == dices[2] {
+                *distance = dices[0] * 3;
+            } else if dices[0] == 4 && dices[1] == 5 && dices[2] == 6 {
+                *distance = 10;
+            } else if dices[0] == dices[1] {
+                *distance = dices[2];
+            } else if dices[1] == dices[2] {
+                *distance = dices[0];
+            } else if dices[2] == dices[0] {
+                *distance = dices[1];
+            } else {
+                continue;
+            };
+            return dices;
+        }
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+pub enum Dir {
+    North,
+    East,
+    South,
+    #[default] West,
+}
+
+impl Dir {
+    pub fn from_key(key: &str) -> Option<Dir> {
+        match key {
+            "h" => Some(Dir::West),
+            "j" => Some(Dir::South),
+            "k" => Some(Dir::North),
+            "l" => Some(Dir::East),
+            _ => None,
+        }
+    }
 }
 
 pub static TURN: LazyLock<Mutex<usize>> = LazyLock::new(|| Mutex::new(0));
 pub static PLAYERS: LazyLock<Mutex<Vec<Player>>> = LazyLock::new(|| Mutex::new(Vec::new()));
 pub static DISTANCE: LazyLock<Mutex<u32>> = LazyLock::new(|| Mutex::new(0));
-pub static HISTORY: LazyLock<Mutex<Vec<String>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+pub static HISTORY: LazyLock<Mutex<Vec<Dir>>> = LazyLock::new(|| Mutex::new(Vec::new()));
 
 impl Card {
     pub fn new(name: &str, explain: &str, process: fn() -> String) -> Self {
@@ -65,27 +171,20 @@ pub static CARD_LIST: LazyLock<[Card; 2]> = LazyLock::new(|| {[
     Card::new("徳政令", "全員の借金を無くします", Card::debt_cancellation_order),
 ]});
 
-#[wasm_bindgen]
 pub fn add_player(name: &str) {
     let mut players = PLAYERS.lock().unwrap();
     let mut player = Player::default();
     player.name = name.to_string();
-    player.dir = "w".to_string();
+    player.color = match players.len() {
+        0 => "blue".to_string(),
+        1 => "red".to_string(),
+        2 => "yellow".to_string(),
+        3 => "green".to_string(),
+        _ => panic!("too many players"),
+    };
     players.push(player);
 }
 
-#[wasm_bindgen]
-pub fn get_cards() -> Vec<String> {
-    let players = PLAYERS.lock().unwrap();
-    let turn = TURN.lock().unwrap();
-    let mut cards: Vec<String> = Vec::new();
-    for card_id in players[*turn].card.iter() {
-        cards.push(CARD_LIST[*card_id].name.clone());
-    }
-    cards
-}
-
-#[wasm_bindgen]
 pub fn next_turn() -> usize {
     let mut turn = TURN.lock().unwrap();
     let mut month = MONTH.lock().unwrap();
@@ -99,48 +198,4 @@ pub fn next_turn() -> usize {
         }
     }
     *turn
-}
-
-#[wasm_bindgen]
-pub fn roll() -> u32 {
-    let turn = TURN.lock().unwrap();
-    let players = PLAYERS.lock().unwrap();
-    let mut distance = DISTANCE.lock().unwrap();
-    let mut history = HISTORY.lock().unwrap();
-    
-    loop {
-        let dice0 = rand::thread_rng().gen_range(1..7);
-        let dice1 = rand::thread_rng().gen_range(1..7);
-        let dice2 = rand::thread_rng().gen_range(1..7);
-        if dice0 == 1 && dice1 == 1 && dice2 == 1 {
-            *distance = 30;
-        } else if dice0 == dice1 && dice1 == dice2 {
-            *distance = dice0 * 3;
-        } else if dice0 == 4 && dice1 == 5 && dice2 == 6 {
-            *distance = 10;
-        } else if dice0 == dice1 {
-            *distance = dice2;
-        } else if dice1 == dice2 {
-            *distance = dice0;
-        } else if dice2 == dice0 {
-            *distance = dice1;
-        } else {
-            continue;
-        };
-        break;
-    }
-
-    history.clear();
-
-    *distance
-}
-
-pub fn get_color(id: usize) -> Result<String, JsValue> {
-    match id {
-        0 => Ok("blue".to_string()),
-        1 => Ok("red".to_string()),
-        2 => Ok("yellow".to_string()),
-        3 => Ok("green".to_string()),
-        _ => Err(JsValue::from_str(&format!("color: {}: 異常な値です", id))),
-    }
 }

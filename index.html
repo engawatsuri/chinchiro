@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>チンチロ電鉄</title>
+    <title>チンチロ電車</title>
     <style>
         html,
         body {
@@ -22,9 +22,11 @@
             appearance: none;
             -webkit-appearance: none;
             background-color: burlywood;
-            border-width: 1px;
-            border-color: burlywood;
+            color: black;
+            font-family: 'Meiryo UI';
+            border-color: chocolate;
             opacity: 0.5;
+            text-align: left;
         }
 
         .page {
@@ -35,22 +37,31 @@
             display: block;
         }
 
-        #home0,
-        #home1,
-        #home2,
-        #home3,
-        #start0,
-        #start1,
-        #start2,
-        #start3,
-        #start4,
-        #other0,
-        #movement_n,
-        #movement_e,
-        #movement_s,
-        #movement_w {
+        #player0 {
+            background-color: blue;
+            box-sizing: border-box;
+        }
+
+        #player1 {
+            background-color: red;
+            box-sizing: border-box;
+        }
+
+        #player2 {
+            background-color: yellow;
+            box-sizing: border-box;
+        }
+
+        #player3 {
+            background-color: green;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            font-family: 'Meiryo UI';
             background-color: lightgray;
             color: black;
+            text-align: left;
         }
 
         .selected {
@@ -73,46 +84,44 @@
                 top: 60dvh;
                 width: calc(100dvh * 3.2 / 3);
                 height: 30dvh;
+                font-size: 5dvh;
+                border-width: 1dvh;
             }
 
-            #home0 {
+            .pos0 {
                 position: absolute;
                 left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 4 / 3 * 0.1));
                 top: 10dvh;
                 width: calc(100dvh * 4 / 3 * 0.5);
                 height: 10dvh;
+                font-size: 5dvh;
             }
 
-            #home1 {
+            .pos1 {
                 position: absolute;
                 left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 4 / 3 * 0.1));
                 top: 22dvh;
                 width: calc(100dvh * 4 / 3 * 0.5);
                 height: 10dvh;
+                font-size: 5dvh;
             }
 
-            #home2 {
+            .pos2 {
                 position: absolute;
                 left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 4 / 3 * 0.1));
                 top: 34dvh;
                 width: calc(100dvh * 4 / 3 * 0.5);
                 height: 10dvh;
+                font-size: 5dvh;
             }
 
-            #home3 {
+            .pos3 {
                 position: absolute;
                 left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 4 / 3 * 0.1));
                 top: 46dvh;
                 width: calc(100dvh * 4 / 3 * 0.5);
                 height: 10dvh;
-            }
-
-            #yourPlayer {
-                position: absolute;
-                left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 4 / 3 * 0.7));
-                top: 46dvh;
-                width: calc(100dvh * 4 / 3 * 0.2);
-                height: 10dvh;
+                font-size: 5dvh;
             }
 
             #start0 {
@@ -121,6 +130,7 @@
                 top: calc(100dvh * 11/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #start1 {
@@ -129,6 +139,7 @@
                 top: calc(100dvh * 13/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #start2 {
@@ -137,6 +148,7 @@
                 top: calc(100dvh * 15/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #start3 {
@@ -145,6 +157,7 @@
                 top: calc(100dvh * 17/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #start4 {
@@ -153,14 +166,7 @@
                 top: calc(100dvh * 19/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
-            }
-
-            #other0 {
-                position: absolute;
-                left: calc((100vw - (100dvh * 4 / 3)) / 2 + (100dvh * 2/22));
-                top: calc(100dvh * 19/22);
-                width: calc(100dvh * 5/22);
-                height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #movement_n {
@@ -169,6 +175,7 @@
                 top: calc(100dvh * 13/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #movement_e {
@@ -177,6 +184,7 @@
                 top: calc(100dvh * 15/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #movement_s {
@@ -185,6 +193,7 @@
                 top: calc(100dvh * 17/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
 
             #movement_w {
@@ -193,6 +202,7 @@
                 top: calc(100dvh * 19/22);
                 width: calc(100dvh * 5/22);
                 height: calc(100dvh * 1/11);
+                font-size: calc(100dvh * 1/22);
             }
         }
 
@@ -212,46 +222,44 @@
                 top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.6));
                 width: 80vw;
                 height: calc(100vw * 3 / 4 * 0.3);
+                font-size: calc(100vw * 3 / 4 * 0.05);
+                border-width: calc(100vw * 3 / 4 * 0.01);
             }
 
-            #home0 {
+            .pos0 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.1));
                 width: 50vw;
                 height: calc(100vw * 3 / 4 * 0.1);
+                font-size: calc(100vw * 3/4 * 0.05);
             }
 
-            #home1 {
+            .pos1 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.22));
                 width: 50vw;
                 height: calc(100vw * 3 / 4 * 0.1);
+                font-size: calc(100vw * 3/4 * 0.05);
             }
 
-            #home2 {
+            .pos2 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.34));
                 width: 50vw;
                 height: calc(100vw * 3 / 4 * 0.1);
+                font-size: calc(100vw * 3/4 * 0.05);
             }
 
-            #home3 {
+            .pos3 {
                 position: absolute;
                 left: 10vw;
                 top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.46));
                 width: 50vw;
                 height: calc(100vw * 3 / 4 * 0.1);
-            }
-
-            #yourPlayer {
-                position: absolute;
-                left: 70vw;
-                top: calc((100dvh - (100vw * 3 / 4)) / 2 + (100vw * 3 / 4 * 0.46));
-                width: 20vw;
-                height: calc(100vw * 3 / 4 * 0.1);
+                font-size: calc(100vw * 3/4 * 0.05);
             }
 
             #start0 {
@@ -260,6 +268,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 11/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #start1 {
@@ -268,6 +277,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 13/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #start2 {
@@ -276,6 +286,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 15/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #start3 {
@@ -284,6 +295,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 17/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #start4 {
@@ -292,14 +304,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
-            }
-
-            #other0 {
-                position: absolute;
-                left: calc(100vw * 3/4 * 1/11);
-                top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
-                width: calc(100vw * 3/4 * 5/22);
-                height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #movement_n {
@@ -308,6 +313,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 13/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #movement_e {
@@ -316,6 +322,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 15/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #movement_s {
@@ -324,6 +331,7 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 17/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
 
             #movement_w {
@@ -332,81 +340,70 @@
                 top: calc((100dvh - (100vw * 3/4)) / 2 + (100vw * 3/4 * 19/22));
                 width: calc(100vw * 3/4 * 5/22);
                 height: calc(100vw * 3/4 * 1/11);
+                font-size: calc(100vw * 3/4 * 1/22);
             }
         }
     </style>
-    <link rel="stylesheet" href="create.css">
 </head>
 
 <body>
     <canvas id="win"></canvas>
     <btn id="msg" onclick="keydown('Enter')"></btn>
     <div id="home" class="page active">
-        <button id="home0">つづきから</button>
-        <button id="home1" onclick="changePage('create1')">はじめから</button>
-        <button id="home2">設定</button>
-        <button id="home3">遊び方</button>
+        <button id="home0" class="btn pos0">つづきから</button>
+        <button id="home1" class="btn pos1" onclick="change_page('create1')">はじめから</button>
+        <button id="home2" class="btn pos2">設定</button>
+        <button id="home3" class="btn pos3">遊び方</button>
     </div>
-    <div id="create1" class="page">
-        <input id="player1" type="text" maxlength="6">
-        <input id="player2" type="text" maxlength="6">
-        <input id="player3" type="text" maxlength="6">
-        <input id="player4" type="text" maxlength="6">
+    <div id="create0" class="page">
+        <input id="player0" class="pos0" type="text" maxlength="4">
+        <input id="player1" class="pos1" type="text" maxlength="4">
+        <input id="player2" class="pos2" type="text" maxlength="4">
+        <input id="player3" class="pos3" type="text" maxlength="4">
     </div>
-    <div id="create2" class="page"></div>
+    <div id="create1" class="page"></div>
+    <div id="setting_goal" class="page"></div>
     <div id="start" class="page">
-        <button id="start0" onclick="changePage('dice')">サイコロ</button>
-        <button id="start1" onclick="changePage('card')">カード</button>
-        <button id="start2" onclick="changePage('item')">アイテム</button>
-        <button id="start3" onclick="changePage('search')">探索</button>
-        <button id="start4" onclick="changePage('other')">その他</button>
+        <button id="start0" class="btn" onclick="change_page('dice')">サイコロ</button>
+        <button id="start1" class="btn" onclick="">カード</button>
+        <button id="start2" class="btn" onclick="">アイテム</button>
+        <button id="start3" class="btn" onclick="">探索</button>
+        <button id="start4" class="btn" onclick="">その他</button>
     </div>
     <div id="movement" class="page">
-        <button id="movement_n" onclick="keydown('h')">西</button>
-        <button id="movement_e" onclick="keydown('j')">南</button>
-        <button id="movement_s" onclick="keydown('k')">北</button>
-        <button id="movement_w" onclick="keydown('l')">東</button>
+        <button id="movement_n" class="btn" onclick="keydown('h')">西</button>
+        <button id="movement_e" class="btn" onclick="keydown('j')">南</button>
+        <button id="movement_s" class="btn" onclick="keydown('k')">北</button>
+        <button id="movement_w" class="btn" onclick="keydown('l')">東</button>
     </div>
     <div id="dice" class="page"></div>
-    <div id="card" class="page">
-        <button id="card0" onclick=""></button>
-    </div>
+    <div id="card" class="page"></div>
     <div id="item" class="page"></div>
     <div id="search" class="page"></div>
-    <div id="other" class="page">
-        <button id="other0" onclick="next_start()">スキップ</button>
-    </div>
-    <div id="property_station" class="page"></div>
-    <div id="blue_station" class="page"></div>
-    <div id="card_station" class="page"></div>
-    <div id="red_station" class="page"></div>
+    <div id="other" class="page"></div>
+    <div id="arrival" class="page"></div>
+    <div id="arrival_goal" class="page">
+    <div id="station_ai" class="page"></div>
+    <div id="station_ca" class="page"></div>
+    <div id="station_du" class="page"></div>
+    <div id="station_he" class="page"></div>
+    <div id="station_ka" class="page"></div>
+    <div id="station_lo" class="page"></div>
+    <div id="station_mi" class="page"></div>
+    <div id="station_ni" class="page"></div>
+    <div id="station_pl" class="page"></div>
+    <div id="station_pr" class="page"></div>
+    <div id="station_sh" class="page"></div>
+    <div id="station_to" class="page"></div>
+    <div id="station_wh" class="page"></div>
     <script type="module">
         import init_wasm, {
-            draw_map,
-            move_train,
-            add_player,
-            roll,
-            next_turn,
-            get_cards,
-            stop_property_station, stop_blue_station, stop_card_station, stop_red_station,
+            resize_win,
+            change_page,
         } from "./pkg/frontend.js";
 
-        const win = document.getElementById('win');
-        const ctx = win.getContext('2d');
-        const msg = document.getElementById('msg');
-        let page = 'home';
-        let selected = 0;
-        let selected_range = 0;
-        let initialized = false;
-        let movement_result;
-        
         async function initFrontend() {
             await init_wasm();
-        }
-
-        function next_start(key) {
-            next_turn();
-            changePage('start');
         }
 
         function keydown(key) {
@@ -415,348 +412,11 @@
             }));
         }
 
-        function btn_sys(key) {
-            let new_selected;
-            switch(key) {
-                case 'Enter': {
-                    let btn = document.getElementById(`${page}${selected}`);
-                    btn.classList.remove("selected");
-                    btn.onclick();
-                    return;
-                }
-                case 'J': {
-                    new_selected = selected_range - 1;
-                    break;
-                }
-                case 'j': {
-                    new_selected = (selected + 1) % selected_range;
-                    break;
-                }
-                case 'K': {
-                    new_selected = 0;
-                    break;
-                }
-                case 'k': {
-                    new_selected = (selected + -1 + selected_range) % selected_range;
-                    break;
-                }
-                default: {
-                    return;
-                }
-            }
-            if(initialized) {
-                let btn = document.getElementById(`${page}${selected}`);
-                btn.classList.remove("selected");
-            } else {
-                initialized = true;
-            }
-            selected = new_selected;
-            let btn = document.getElementById(`${page}${selected}`);
-            btn.classList.add("selected");
-        }
-
-        function init() {
-            switch (page) {
-                case 'start': {
-                    initialized = false;
-                    selected_range = 5;
-                    msg.textContent = "";
-                    window.onkeydown = (e) => {
-                        btn_sys(e.key);
-                    };
-                    btn_sys('K');
-                    msg.style.display = 'none';
-                    break;
-                }
-                case 'movement': {
-                    window.onkeydown = (e) => {
-                        console.log("keydown", e.key, e.repeat);
-
-                        switch(e.key) {
-                            case 'h': {
-                                movement_result = move_train('w');
-                                break;
-                            }
-                            case 'j': {
-                                movement_result = move_train('s');
-                                break;
-                            }
-                            case 'k': {
-                                movement_result = move_train('n');
-                                break;
-                            }
-                            case 'l': {
-                                movement_result = move_train('e');
-                                break;
-                            }
-                            default: {
-                                return;
-                            }
-                        }
-                        draw();
-                        if(movement_result == "property") {
-                            changePage('property_station');
-                        } else if(movement_result == "blue") {
-                            changePage('blue_station');
-                        } else if(movement_result == "card") {
-                            changePage('card_station');
-                        } else if(movement_result == "red") {
-                            changePage('red_station');
-                        } else {
-                            msg.textContent = `残り${movement_result}マス`;
-                        }
-                    };
-                    break;
-                }
-                case 'dice': {
-                    msg.style.display = 'block';
-                    msg.textContent = `${roll()}マス進めます`;
-                    changePage('movement');
-                    break;
-                }
-                case 'card': {
-                    msg.style.display = 'block';
-                    const cards = get_cards();
-                    if(cards.length == 0) {
-                        msg.textContent = 'カードは一枚も持っていません';
-                        window.onkeydown = (e) => {
-                            switch(e.key) {
-                                case 'Enter': {
-                                    next_turn();
-                                    changePage('start');
-                                    break;
-                                }
-                            }
-                        };
-                    } else {
-                        msg.textContent = `カードを${cards.length}枚も持っています`;
-                        window.onkeydown = (e) => {
-                            switch(e.key) {
-                                case 'Enter': {
-                                    next_turn();
-                                    changePage('start');
-                                    break;
-                                }
-                            }
-                        };
-                    }
-                    break;
-                }
-                case 'item': {
-                    msg.textContent = "まだこのページは完成していません";
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Escape': {
-                                changePage('start');
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'search': {
-                    msg.textContent = "まだこのページは完成していません";
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Escape': {
-                                changePage('start');
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'other': {
-                    initialized = false;
-                    selected_range = 1;
-                    btn_sys('K');
-                    window.onkeydown = (e) => {
-                        btn_sys(e.key);
-                    };
-                    break;
-                }
-                case 'property_station': {
-                    msg.textContent = `${stop_property_station()}駅に止まりました`;
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter': {
-                                next_turn();
-                                changePage('start');
-                                break;
-                            }
-                            case 'Escape': {
-                                break;
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'blue_station': {
-                    msg.textContent = `${stop_blue_station()}万円手に入りました`;
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter': {
-                                next_turn();
-                                changePage('start');
-                                break;
-                            }
-                            case 'Escape': {
-                                break;
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'card_station': {
-                    msg.textContent = `${stop_card_station()}カードを手に入れた`;
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter': {
-                                next_turn();
-                                changePage('start');
-                                break;
-                            }
-                            case 'Escape': {
-                                break;
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'red_station': {
-                    msg.textContent = `${stop_red_station()}万円失いました`;
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter': {
-                                next_turn();
-                                changePage('start');
-                                break;
-                            }
-                            case 'Escape': {
-                                break;
-                            }
-                        }
-                    };
-                    break;
-                }
-                case 'home': {
-                    initialized = false;
-                    selected_range = 4;
-                    btn_sys('K');
-                    msg.textContent = "桃太郎電鉄(えんがわ釣り・作)へようこそ";
-                    window.onkeydown = (e) => {
-                        btn_sys(e.key);
-                    };
-                    break;
-                }
-                case 'create1': {
-                    msg.textContent = "社長さんの名前とあなたの汽車を設定してください";
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter':
-                                const player1 = document.getElementById('player1');
-                                const player2 = document.getElementById('player2');
-                                const player3 = document.getElementById('player3');
-                                const player4 = document.getElementById('player4');
-                                if(player1.value != "") {
-                                    add_player(player1.value);
-                                    if(player2.value != "") {
-                                        add_player(player2.value);
-                                        if(player3.value != "") {
-                                            add_player(player3.value);
-                                            if(player4.value != "") {
-                                                add_player(player4.value);
-                                            }
-                                        }
-                                    }
-                                    changePage('create2');
-                                }
-                                break;
-                            case 'Escape':
-                                changePage('home');
-                                break;
-                        }
-                    };
-                    break;
-                }
-                case 'create2': {
-                    msg.textContent = "本作の目標はお金を集めることではありません。様々な事象でポイントを集めることです。その事象の中には、総資産が少なくないと発生しないものもあります。まずは100ポイントを目指して頑張ってください";
-                    window.onkeydown = (e) => {
-                        switch(e.key) {
-                            case 'Enter':
-                                changePage('start');
-                                break;
-                            case 'Escape':
-                                changePage('create1');
-                                break;
-                        }
-                    };
-                    break;
-                }
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, win.width, win.height);
-            switch (page) {
-                case 'start': {
-                    draw_map();
-                    break;
-                }
-                case 'movement': {
-                    draw_map();
-                    break;
-                }
-                case 'dice':
-                case 'card':
-                case 'item':
-                case 'search':
-                case 'other': {
-                    draw_map();
-                    break;
-                }
-                case 'property_station':
-                case 'blue_station':
-                case 'card_station':
-                case 'red_station': {
-                    draw_map();
-                    break;
-                }
-                case 'home': {
-                    break;
-                }
-                case 'create1': {
-                    break;
-                }
-                case 'create2': {
-                    draw_map();
-                    break;
-                }
-            }
-        }
-
-        function changePage(pageId) {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            page = pageId;
-            init();
-            draw();
-        }
-
-        globalThis.changePage = changePage;
-        globalThis.keydown = keydown;
+        window.change_page = change_page;
+        window.keydown = keydown;
 
         function preventScroll(e) {
             e.preventDefault();
-        }
-
-        function resizeWin() {
-            const dpr = window.devicePixelRatio || 1;
-            const rect = win.getBoundingClientRect();
-            win.width = Math.round(rect.width * dpr);
-            win.height = Math.round(rect.height * dpr);
-            win.style.width = rect.width + 'px';
-            win.style.height = rect.height + 'px';
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            draw();
         }
 
         window.addEventListener('load', async () => {
@@ -766,13 +426,13 @@
 
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    resizeWin();
-                    changePage('home');
+                    resize_win();
+                    change_page('home');
                 });
             });
         });
 
-        window.addEventListener('resize', resizeWin);
+        window.addEventListener('resize', resize_win);
     </script>
 </body>
 
